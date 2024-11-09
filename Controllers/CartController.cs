@@ -89,22 +89,35 @@ public class CartController : Controller
         ViewBag.Carts = carts;
         return View(obj);
     }
+    
     [HttpPost]
-    public IActionResult Add(Cart obj){
+    public IActionResult Add(Cart obj)
+    {
         string? memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if(string.IsNullOrEmpty(memberId)){
+        if (string.IsNullOrEmpty(memberId))
+        {
             return Redirect("/auth/login");
         }
+
+        // Kiểm tra ProductId tồn tại
+        var productExists = context.Products.Any(p => p.ProductId == obj.ProductId);
+        if (!productExists)
+        {
+            ModelState.AddModelError("ProductError", "Product not found.");
+            return RedirectToAction("Index");
+        }
+
         obj.MemberId = memberId;
         
-        if(context.Carts.Any(p => p.MemberId == obj.MemberId && p.ProductId == obj.ProductId)){
-            Cart? cart = context.Carts.FirstOrDefault(p => p.MemberId == obj.MemberId && p.ProductId == obj.ProductId);
-            if(cart != null){
-                cart.Quantity += obj.Quantity;
-                cart.UpdatedDate = DateTime.Now;
-                context.Carts.Update(cart);
-            }
-        }else{
+        var existingCart = context.Carts.FirstOrDefault(p => p.MemberId == obj.MemberId && p.ProductId == obj.ProductId);
+        if (existingCart != null)
+        {
+            existingCart.Quantity += obj.Quantity;
+            existingCart.UpdatedDate = DateTime.Now;
+            context.Carts.Update(existingCart);
+        }
+        else
+        {
             obj.CreatedDate = DateTime.Now;
             obj.UpdatedDate = DateTime.Now;
             context.Carts.Add(obj);
@@ -112,6 +125,8 @@ public class CartController : Controller
         context.SaveChanges();
         return Redirect("/cart");
     }
+
+    
     public IActionResult Index(){
         //Miss
         ViewBag.Departments = context.Departments.ToList();
@@ -124,13 +139,45 @@ public class CartController : Controller
         }
         return View(context.Carts.Include(p => p.Product).Where(p => p.MemberId == memberId).ToList());
     }
-    //Tự làm
-    public IActionResult Delete(int id){
-        return Redirect("/cart");
-    }
-    //Tự làm
+
     [HttpPost]
-    public IActionResult Edit(int id, Cart obj){
+    public IActionResult UpdateCart(Dictionary<int, Cart> updatedCarts)
+    {
+        var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(memberId))
+        {
+            return Redirect("/auth/login");
+        }
+
+        foreach (var item in updatedCarts)
+        {
+            var cart = context.Carts.FirstOrDefault(c => c.CartId == item.Key && c.MemberId == memberId);
+            if (cart != null)
+            {
+                cart.Quantity = item.Value.Quantity;
+                cart.UpdatedDate = DateTime.Now;
+                context.Carts.Update(cart);
+            }
+        }
+
+        context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(memberId))
+        {
+            return Redirect("/auth/login");
+        }
+
+        var cart = context.Carts.FirstOrDefault(p => p.CartId == id && p.MemberId == memberId);
+        if (cart != null)
+        {
+            context.Carts.Remove(cart);
+            context.SaveChanges();
+        }
         return Redirect("/cart");
     }
 }

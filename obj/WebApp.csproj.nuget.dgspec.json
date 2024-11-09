@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\thanh ha\\OneDrive\\Máy tính.gmx\\Thanh Ha - WebAppOrganic\\Thanh Ha - WebAppOrganic\\WebAppOrganic\\WebApp\\WebApp.csproj": {}
+    "D:\\Visual Studio Code\\Ebook-Ecommerece-Web\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\thanh ha\\OneDrive\\Máy tính.gmx\\Thanh Ha - WebAppOrganic\\Thanh Ha - WebAppOrganic\\WebAppOrganic\\WebApp\\WebApp.csproj": {
+    "D:\\Visual Studio Code\\Ebook-Ecommerece-Web\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\thanh ha\\OneDrive\\Máy tính.gmx\\Thanh Ha - WebAppOrganic\\Thanh Ha - WebAppOrganic\\WebAppOrganic\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "D:\\Visual Studio Code\\Ebook-Ecommerece-Web\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\thanh ha\\OneDrive\\Máy tính.gmx\\Thanh Ha - WebAppOrganic\\Thanh Ha - WebAppOrganic\\WebAppOrganic\\WebApp\\WebApp.csproj",
-        "packagesPath": "C:\\Users\\thanh ha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\thanh ha\\OneDrive\\Máy tính.gmx\\Thanh Ha - WebAppOrganic\\Thanh Ha - WebAppOrganic\\WebAppOrganic\\WebApp\\obj\\",
+        "projectPath": "D:\\Visual Studio Code\\Ebook-Ecommerece-Web\\WebApp.csproj",
+        "packagesPath": "C:\\Users\\ThyLuu\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Code\\Ebook-Ecommerece-Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\thanh ha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ThyLuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
